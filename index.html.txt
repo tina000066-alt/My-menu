@@ -1,0 +1,442 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LUMIÈRE 美學 | TAOYUAN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F8F6F4;
+            --primary: #4A4A4A;
+            --primary-light: #D1C7BD;
+            --text-dark: #333333;
+            --text-light: #888888;
+            --accent: #9A8C81;
+            --white: #FFFFFF;
+        }
+
+        /* 基礎設定 */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.8;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Noto Serif TC', serif; font-weight: 600; text-align: center; }
+
+        /* 頁首設計 */
+        header {
+            width: 100%;
+            padding: 50px 0 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-size: 1.7rem;
+            letter-spacing: 6px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .header-line {
+            width: 50px;
+            height: 1px;
+            background-color: var(--primary-light);
+            margin-bottom: 12px;
+        }
+
+        .brand-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 4px;
+            font-weight: 300;
+        }
+
+        /* 導航欄 */
+        .nav-wrapper {
+            position: sticky;
+            top: 0;
+            background: rgba(248, 246, 244, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-wrapper::-webkit-scrollbar { display: none; }
+
+        .tabs-container {
+            display: flex;
+            flex-wrap: nowrap;
+            padding: 0 10px;
+        }
+
+        .tab-btn {
+            padding: 16px 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.88rem;
+            cursor: pointer;
+            font-family: 'Noto Serif TC', serif;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .tab-btn.active { color: var(--primary); font-weight: 600; }
+        .tab-btn.active::after {
+            content: ''; 
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px; 
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* 內容區塊 */
+        .content-section { 
+            display: none; 
+            padding: 40px 20px 140px; 
+            animation: fadeIn 0.4s ease-out; 
+            width: 100%;
+            max-width: 450px; 
+            margin: 0 auto; 
+        }
+        .content-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 35px;
+            letter-spacing: 3px;
+        }
+
+        .centered-text { text-align: center; }
+        .intro-p { margin-bottom: 25px; font-size: 0.95rem; }
+
+        /* 價格列表卡片 */
+        .price-list {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid #F9F9F9;
+        }
+
+        .item-info { text-align: left; }
+        .item-cost { font-family: 'Noto Serif TC', serif; font-weight: 500; white-space: nowrap; }
+        .item-sub { font-size: 0.75rem; color: var(--text-light); margin-left: 8px; }
+
+        /* 資訊卡片 */
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            text-align: center;
+            width: 100%;
+        }
+
+        .card-header {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .feature-list { list-style: none; text-align: center; margin-bottom: 5px; }
+        .feature-item { font-size: 0.92rem; margin-bottom: 8px; color: #555; }
+        .faq-a { font-size: 0.92rem; color: var(--text-dark); line-height: 1.7; }
+        .white-heart { color: #888; font-size: 0.8rem; }
+
+        .note-box {
+            border: 1px dashed var(--primary-light);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-align: center;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+
+        /* 底部固定按鈕區 */
+        .cta-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+
+        .cta-link {
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-link:active { transform: scale(0.96); }
+
+        .btn-main {
+            flex: 1;
+            background: var(--primary);
+            color: #fff !important;
+            height: 60px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .btn-circle {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-name">LUMIÈRE 美學</div>
+        <div class="header-line"></div>
+        <div class="brand-sub">TAOYUAN ‧ BEAUTY</div>
+    </header>
+
+    <div class="nav-wrapper">
+        <nav class="tabs-container">
+            <button class="tab-btn active" data-target="intro">品牌介紹</button>
+            <button class="tab-btn" data-target="nail">凝膠美甲</button>
+            <button class="tab-btn" data-target="skin">皮膚管理</button>
+            <button class="tab-btn" data-target="waxing">美肌除毛</button>
+            <button class="tab-btn" data-target="lash">美睫設計</button>
+            <button class="tab-btn" data-target="info">預約資訊</button>
+        </nav>
+    </div>
+
+    <!-- 品牌介紹 -->
+    <section id="intro" class="content-section active">
+        <div class="centered-text">
+            <h3 class="section-title">【品牌介紹】</h3>
+            <p class="intro-p">Lumière，意思是光。</p>
+            <p class="intro-p">我們相信，美不需要被過度改變，<br>而是在被好好對待之後，<br>慢慢回到屬於自己的樣子。</p>
+            <p class="intro-p">在 LUMIÈRE 美學，<br>我們以溫和細緻的方式，<br>為每一位來到這裡的人，<br>進行專屬的調整與照顧。</p>
+            <p class="intro-p">從肌膚管理到細節整理，<br>不職是單一項目，<br>而是整體狀態的平衡與提升。</p>
+            <p class="intro-p">這裡沒有急促的改變，<br>只有剛剛好的步調。</p>
+        </div>
+    </section>
+
+    <!-- 美甲 -->
+    <section id="nail" class="content-section">
+        <h3 class="section-title">凝膠美甲 NAIL</h3>
+        <div class="price-list">
+            <div class="price-item"><span>單色</span><span class="item-cost">700</span></div>
+            <div class="price-item"><span>跳色 / 調色</span><span class="item-cost">800</span></div>
+            <div class="price-item"><span>貓眼 / 鏡面 / 特殊膠</span><span class="item-cost">900<small class="item-sub">底色+100</small></span></div>
+            <div class="price-item"><span>漸層 / 暈染 / 法式</span><span class="item-cost">1000<small class="item-sub">底色+100</small></span></div>
+            <div class="price-item"><span>活動款式</span><span class="item-cost">990 up</span></div>
+            <div class="price-item"><span>客製款式</span><span class="item-cost">傳圖報價</span></div>
+        </div>
+        <p class="centered-text" style="font-size: 0.85rem; margin-bottom: 10px; color: #888; font-weight: 500;">加購</p>
+        <div class="price-list">
+            <div class="price-item"><span>鑽飾</span><span class="item-cost">50 up</span></div>
+            <div class="price-item"><span>延甲</span><span class="item-cost">80 / 指</span></div>
+            <div class="price-item"><span>十指全延</span><span class="item-cost">600</span></div>
+            <div class="price-item"><span>補甲</span><span class="item-cost">150 / 指</span></div>
+        </div>
+        <p class="centered-text" style="font-size: 0.85rem; margin-bottom: 10px; color: #888; font-weight: 500;">卸甲</p>
+        <div class="price-list">
+            <div class="price-item"><span>純卸甲 (大鑽另計)</span><span class="item-cost">400</span></div>
+            <div class="price-item"><span>本店卸甲續作</span><span class="item-cost">200</span></div>
+            <div class="price-item"><span>他店卸甲續作</span><span class="item-cost">300</span></div>
+        </div>
+        <div class="note-box">
+            21:30 後深夜服務 加收$300<br>
+            (不配合優惠活動)<br>
+            店家保有解釋權
+        </div>
+    </section>
+
+    <!-- 皮膚管理 -->
+    <section id="skin" class="content-section">
+        <h3 class="section-title">韓式皮膚管理 SKIN</h3>
+        <div class="price-list">
+            <div class="price-item"><span>基礎管理</span><span class="item-cost">1350</span></div>
+            <div class="price-item"><span>MTS 客製管理</span><span class="item-cost">1900</span></div>
+            <div class="price-item"><span>駐顏粉底</span><span class="item-cost">1900</span></div>
+            <div class="price-item"><span>藻針煥膚</span><span class="item-cost">2400</span></div>
+            <div class="price-item"><span>葉綠素煥膚</span><span class="item-cost">2680</span></div>
+        </div>
+        <p class="centered-text" style="font-size: 0.85rem; color: #888; margin-top: -10px;">( 皆含 卸妝、清潔、手工清粉刺 )</p>
+        <div class="note-box">
+            21:30 後深夜服務 加收$300<br>
+            (不配合優惠活動)<br>
+            店家保有解釋權
+        </div>
+    </section>
+
+    <!-- 除毛 - 依照圖片精確更新 -->
+    <section id="waxing" class="content-section">
+        <h3 class="section-title">熱蠟美肌除毛 WAXING</h3>
+        <div class="price-list">
+            <div class="price-item"><span>比基尼全除</span><span class="item-cost">1300</span></div>
+            <div class="price-item"><span>私密處全除</span><span class="item-cost">1500</span></div>
+            <div class="price-item"><span>全手臂 / 前手臂</span><span class="item-cost">1300 / 700</span></div>
+            <div class="price-item"><span>全腿 / 小腿</span><span class="item-cost">1500 / 800</span></div>
+            <div class="price-item"><span>半背</span><span class="item-cost">1000</span></div>
+            <div class="price-item"><span>上胸 / 上腹 / 下腹</span><span class="item-cost">650</span></div>
+            <div class="price-item"><span>腋下</span><span class="item-cost">450</span></div>
+            <div class="price-item"><span>加購 肚臍毛</span><span class="item-cost">200</span></div>
+        </div>
+        <div class="note-box">
+            21:30 後深夜服務 加收$300<br>
+            (不配合優惠活動)<br>
+            店家保有解釋權
+        </div>
+    </section>
+
+    <!-- 美睫 -->
+    <section id="lash" class="content-section">
+        <h3 class="section-title">美睫設計 LASH</h3>
+        <div class="price-list">
+            <div class="price-item"><span>單根</span><span class="item-cost">900</span></div>
+            <div class="price-item"><span>YY | 三葉草</span><span class="item-cost">900</span></div>
+            <div class="price-item"><span>設計款</span><span class="item-cost">1000 up</span></div>
+            <div class="price-item"><span>卸睫</span><span class="item-cost">200</span></div>
+        </div>
+        <div class="note-box">
+            21:30 後深夜服務 加收$300<br>
+            (不配合優惠活動)<br>
+            店家保有解釋權
+        </div>
+    </section>
+
+    <!-- 預約資訊 - 依照需求文字更新 -->
+    <section id="info" class="content-section">
+        <h3 class="section-title">預約資訊</h3>
+        
+        <div class="card">
+            <div class="card-header">【服務特色】</div>
+            <ul class="feature-list">
+                <li class="feature-item">・一對一預約制</li>
+                <li class="feature-item">・依個人狀況客製調整</li>
+                <li class="feature-item">・不過度推銷、不強迫加項</li>
+                <li class="feature-item">・重視長期狀態而非短期效果</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">【預約方式】</div>
+            <div class="faq-a">
+                採完全預約制<br><br>
+                可透過 IG 或官方連結進行預約<br><br>
+                若不確定適合的項目，<br>
+                也可以先簡單告訴我你的狀況，<br>
+                我會幫你一起評估 <span class="white-heart">🤍</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">【地點資訊】</div>
+            <div class="faq-a">
+                <strong>青埔｜中壢｜大園</strong><br><br>
+                桃園市大園區水源南路1077號之二
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部按鈕區 -->
+    <div class="cta-container">
+        <a href="https://www.instagram.com/lumiere.tw_/" target="_blank" class="cta-link btn-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A4A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://lin.ee/Zm8J5dX" target="_blank" class="cta-link btn-main">
+            LINE 預約諮詢
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.content-section');
+            const nav = document.querySelector('.nav-wrapper');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    sections.forEach(s => s.classList.remove('active'));
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    const tabRect = this.getBoundingClientRect();
+                    const navRect = nav.getBoundingClientRect();
+                    const scrollLeft = nav.scrollLeft + tabRect.left - (navRect.width / 2) + (tabRect.width / 2);
+                    nav.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+```
